@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import packageInfo from "../package.json";
 
-const appName = "Simple Web Calculator";
+const appName = "Simple Web Calculator :)";
 
 const buttons = [
   "C",
