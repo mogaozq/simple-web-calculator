@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import packageInfo from "../package.json";
+
+const appName = "Simple Web Calculator";
 
 const buttons = [
   "C",
@@ -130,41 +133,51 @@ export default function App() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-8 text-slate-950">
-      <section className="w-full max-w-sm rounded-lg bg-white p-4 shadow-xl">
-        <div className="mb-4 flex h-24 items-end justify-end rounded-md bg-slate-950 px-4 py-3">
-          <output className="w-full overflow-hidden text-right text-4xl font-semibold tabular-nums text-white">
-            {display}
-          </output>
-        </div>
+    <main className="flex min-h-screen flex-col bg-slate-100 px-4 py-6 text-slate-950">
+      <header className="mx-auto w-full max-w-sm text-center">
+        <h1 className="text-2xl font-bold">{appName}</h1>
+      </header>
 
-        <div className="grid grid-cols-4 gap-2">
-          {buttons.map((button) => {
-            const isOperator = operators.includes(button) || button === "=";
-            const isUtility = ["C", "+/-", "%"].includes(button);
-            const isZero = button === "0";
+      <div className="flex flex-1 items-center justify-center py-6">
+        <section className="w-full max-w-sm rounded-lg bg-white p-4 shadow-xl">
+          <div className="mb-4 flex h-24 items-end justify-end rounded-md bg-slate-950 px-4 py-3">
+            <output className="w-full overflow-hidden text-right text-4xl font-semibold tabular-nums text-white">
+              {display}
+            </output>
+          </div>
 
-            return (
-              <button
-                key={button}
-                type="button"
-                onClick={() => handleClick(button)}
-                className={[
-                  "h-16 rounded-md text-xl font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2",
-                  isZero ? "col-span-2" : "",
-                  isOperator
-                    ? "bg-cyan-600 text-white hover:bg-cyan-700"
-                    : isUtility
-                      ? "bg-slate-200 text-slate-900 hover:bg-slate-300"
-                      : "bg-slate-800 text-white hover:bg-slate-700"
-                ].join(" ")}
-              >
-                {button}
-              </button>
-            );
-          })}
-        </div>
-      </section>
+          <div className="grid grid-cols-4 gap-2">
+            {buttons.map((button) => {
+              const isOperator = operators.includes(button) || button === "=";
+              const isUtility = ["C", "+/-", "%"].includes(button);
+              const isZero = button === "0";
+
+              return (
+                <button
+                  key={button}
+                  type="button"
+                  onClick={() => handleClick(button)}
+                  className={[
+                    "h-16 rounded-md text-xl font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2",
+                    isZero ? "col-span-2" : "",
+                    isOperator
+                      ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                      : isUtility
+                        ? "bg-slate-200 text-slate-900 hover:bg-slate-300"
+                        : "bg-slate-800 text-white hover:bg-slate-700"
+                  ].join(" ")}
+                >
+                  {button}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      <footer className="text-center text-xs text-slate-500">
+        v{packageInfo.version}
+      </footer>
     </main>
   );
 }
