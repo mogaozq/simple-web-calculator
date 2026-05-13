@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -10,13 +10,15 @@ if (!rootElement) {
 }
 
 try {
-  createRoot(rootElement).render(
-    <StrictMode>
-      <App />
-    </StrictMode>
-  );
+  createRoot(rootElement).render(<App />);
 } catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+
   rootElement.innerHTML =
-    '<div style="font-family: Arial, sans-serif; padding: 24px; color: #b91c1c;">React failed to start. Open the browser console to see the error.</div>';
+    `<div style="font-family: Arial, sans-serif; padding: 24px; color: #b91c1c;">
+      <strong>React failed to start.</strong>
+      <pre style="white-space: pre-wrap;">${message}</pre>
+    </div>`;
+
   throw error;
 }
